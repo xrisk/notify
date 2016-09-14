@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+import argparse
+import subprocess
+
+
+def notify(message, title="OS X Terminal"):
+    subprocess.call(['osascript', '-e', 'display notification\
+                    "{}" with title "{}"'.format(message, title)])
+
+
+def main():
+    parser = argparse.ArgumentParser(
+                description='Generate OS X notifications from terminal')
+    parser.add_argument('message', help='notification text')
+    parser.add_argument('title', nargs='?', help='title (optional)')
+    args = parser.parse_args()
+    if args.title:
+        notify(args.message, args.title)
+    else:
+        notify(args.message)
+
+if __name__ == '__main__':
+    main()
